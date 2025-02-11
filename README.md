@@ -34,7 +34,7 @@ The KG schema within ToolLinkOS is as follows:
   - Parameter Indirectly Depends On: A parameter depends on additional context only if required by the user. For example, “tomorrow” requires “get_current_date” but a fixed date does not.
 
 Example of the schema for a few tools during retrieval:
-![Graph RAG Query Execution](assets/graphrag_main-2.pdf)
+![Graph RAG-Tool Fusion Schema Selection](assets/grtf_tool_schema_selection.pdf)
 
 ---
 
