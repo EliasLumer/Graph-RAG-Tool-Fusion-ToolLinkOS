@@ -1,0 +1,826 @@
+[
+    {
+        "name": "get_current_date",
+        "description": "Returns the current date in a standard format (e.g., YYYY-MM-DD).",
+        "parameters": [],
+        "func_type": "core",
+        "depends_on": []
+    },
+    {
+        "name": "get_current_time",
+        "description": "Returns the current time in a standard format (e.g., HH:MM:SS). Defaults to UTC",
+        "parameters": [
+            {
+                "name": "timezone",
+                "description": "The timezone to get the current time. Defaults to UTC.",
+                "required": false,
+                "type": "string",
+                "enum": [
+                    "UTC",
+                    "EST",
+                    "PST",
+                    "CST"
+                ],
+                "default": "UTC"
+            }
+        ],
+        "func_type": "core",
+        "depends_on": [
+            {
+                "name": "get_system_timezone",
+                "dependence_type": "PARAMETER_DIRECTLY_DEPENDS_ON",
+                "parameter_name": "timezone",
+                "reason": "The system timezone can be used for the current time."
+            }
+        ]
+    },
+    {
+        "name": "get_system_timezone",
+        "description": "Fetches the system's current time zone.",
+        "parameters": [],
+        "depends_on": [],
+        "func_type": "core"
+    },
+    {
+        "name": "get_system_language",
+        "description": "Retrieves the system's language setting.",
+        "parameters": [],
+        "depends_on": [],
+        "func_type": "core"
+    },
+    {
+        "name": "get_system_uptime",
+        "description": "Returns the duration the system has been running since the last reboot, in seconds.",
+        "parameters": [],
+        "depends_on": [],
+        "func_type": "core"
+    },
+    {
+        "name": "generate_unique_ID",
+        "description": "Generates a random unique UUID4.",
+        "parameters": [],
+        "depends_on": [],
+        "func_type": "core"
+    },
+    {
+        "name": "get_user_settings",
+        "description": "Retrieves the user's application settings and preferences, such as color scheme (light or dark mode), system currency, and more.",
+        "parameters": [],
+        "depends_on": [],
+        "func_type": "core"
+    },
+    {
+        "name": "get_user_profile",
+        "description": "Retrieves user-specific information such as username, age, preferences, etc.",
+        "parameters": [],
+        "depends_on": [],
+        "func_type": "core"
+    },
+    {
+        "name": "set_cellular_service_status",
+        "description": "Enables or disables the cellular service.",
+        "parameters": [
+            {
+                "name": "on",
+                "description": "Set to true to enable cellular service or false to disable it.",
+                "type": "bool",
+                "required": true
+            }
+        ],
+        "depends_on": [
+            {
+                "name": "get_cellular_service_status",
+                "dependence_type": "TOOL_INDIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "To determine if the cellular service is enabled."
+            }
+        ],
+        "func_type": "core"
+    },
+    {
+        "name": "get_cellular_service_status",
+        "description": "Returns the current status of the cellular service.",
+        "parameters": [],
+        "func_type": "core",
+        "depends_on": [
+            {
+                "name": "set_cellular_service_status",
+                "dependence_type": "TOOL_INDIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "Once the cellular status is retrieved, it can be set."
+            }
+        ]
+    },
+    {
+        "name": "set_wifi_status",
+        "description": "Enables or disables Wi-Fi connectivity.",
+        "parameters": [
+            {
+                "name": "on",
+                "description": "Set to true to enable Wi-Fi or false to disable it.",
+                "type": "bool",
+                "required": true
+            }
+        ],
+        "depends_on": [
+            {
+                "name": "get_wifi_status",
+                "dependence_type": "TOOL_INDIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "To determine if Wi-Fi is enabled."
+            }
+        ],
+        "func_type": "core"
+    },
+    {
+        "name": "get_wifi_status",
+        "description": "Returns the current status of the Wi-Fi connectivity.",
+        "parameters": [],
+        "depends_on": [
+            {
+                "name": "set_wifi_status",
+                "dependence_type": "TOOL_INDIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "Once the Wi-Fi status is retrieved, it can be set."
+            }
+        ],
+        "func_type": "core"
+    },
+    {
+        "name": "set_bluetooth_status",
+        "description": "Enables or disables Bluetooth service.",
+        "parameters": [
+            {
+                "name": "on",
+                "description": "Set to true to enable Bluetooth or false to disable it.",
+                "type": "bool",
+                "required": true
+            }
+        ],
+        "depends_on": [
+            {
+                "name": "get_bluetooth_status",
+                "dependence_type": "TOOL_INDIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "To determine if Bluetooth is enabled."
+            },
+            {
+                "name": "get_wifi_status",
+                "dependence_type": "TOOL_DIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "To check if Wi-Fi is disabled to enable Bluetooth tethering."
+            },
+            {
+                "name": "get_cellular_service_status",
+                "dependence_type": "TOOL_DIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "To ensure cellular service is available for Bluetooth tethering."
+            }
+        ],
+        "func_type": "core"
+    },
+    {
+        "name": "get_bluetooth_status",
+        "description": "Returns the current status of the Bluetooth service.",
+        "parameters": [],
+        "depends_on": [
+            {
+                "name": "set_bluetooth_status",
+                "dependence_type": "TOOL_INDIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "Once the Bluetooth status is retrieved, it can be set."
+            }
+        ],
+        "func_type": "core"
+    },
+    {
+        "name": "set_location_service_status",
+        "description": "Enables or disables the location service.",
+        "parameters": [
+            {
+                "name": "on",
+                "description": "Set to true to enable location services or false to disable them.",
+                "type": "bool",
+                "required": true
+            }
+        ],
+        "depends_on": [
+            {
+                "name": "get_location_service_status",
+                "dependence_type": "TOOL_INDIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "To determine if the location service is enabled to get the location service status."
+            }
+        ],
+        "func_type": "core"
+    },
+    {
+        "name": "get_location_service_status",
+        "description": "Returns the current status of the location service.",
+        "parameters": [],
+        "depends_on": [
+            {
+                "name": "set_location_service_status",
+                "dependence_type": "TOOL_INDIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "Once the location service status is retrieved, it can be set."
+            }
+        ],
+        "func_type": "core"
+    },
+    {
+        "name": "get_current_location",
+        "description": "Returns the current geographical location as latitude and longitude.",
+        "parameters": [],
+        "func_type": "core",
+        "depends_on": [
+            {
+                "name": "get_location_service_status",
+                "dependence_type": "TOOL_DIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "To determine if the location service is enabled to get the location service status."
+            }
+        ]
+    },
+    {
+        "name": "set_low_battery_mode_status",
+        "description": "Enables or disables low battery mode.",
+        "parameters": [
+            {
+                "name": "on",
+                "description": "Set to true to enable low battery mode or false to disable it.",
+                "type": "bool",
+                "required": true
+            }
+        ],
+        "depends_on": [
+            {
+                "name": "get_battery_status",
+                "dependence_type": "TOOL_INDIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "To determine if the battery level is low."
+            },
+            {
+                "name": "get_low_battery_mode_status",
+                "dependence_type": "TOOL_INDIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "To determine if low battery mode is already enabled."
+            }
+        ],
+        "func_type": "core"
+    },
+    {
+        "name": "get_low_battery_mode_status",
+        "description": "Returns the current status of low battery mode.",
+        "parameters": [],
+        "func_type": "core",
+        "depends_on": [
+            {
+                "name": "set_low_battery_mode_status",
+                "dependence_type": "TOOL_INDIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "Once the low battery mode status is retrieved, it can be set."
+            }
+        ]
+    },
+    {
+        "name": "set_airplane_mode_status",
+        "description": "Enables or disables airplane mode.",
+        "parameters": [
+            {
+                "name": "on",
+                "description": "Set to true to enable airplane mode or false to disable it.",
+                "type": "bool",
+                "required": true
+            }
+        ],
+        "depends_on": [
+            {
+                "name": "get_airplane_mode_status",
+                "dependence_type": "TOOL_INDIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "To determine if airplane mode is enabled."
+            }
+        ],
+        "func_type": "core"
+    },
+    {
+        "name": "get_airplane_mode_status",
+        "description": "Returns the current status of airplane mode.",
+        "parameters": [],
+        "func_type": "core",
+        "depends_on": [
+            {
+                "name": "set_airplane_mode_status",
+                "dependence_type": "TOOL_INDIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "Once the airplane mode status is retrieved, it can be set."
+            }
+        ]
+    },
+    {
+        "name": "set_do_not_disturb_status",
+        "description": "Enables or disables Do Not Disturb mode.",
+        "parameters": [
+            {
+                "name": "on",
+                "description": "Set to true to enable Do Not Disturb mode or false to disable it.",
+                "type": "bool",
+                "required": true
+            }
+        ],
+        "depends_on": [
+            {
+                "name": "get_do_not_disturb_status",
+                "dependence_type": "TOOL_INDIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "To determine if Do Not Disturb mode is enabled."
+            }
+        ],
+        "func_type": "core"
+    },
+    {
+        "name": "get_do_not_disturb_status",
+        "description": "Returns the current status of Do Not Disturb mode.",
+        "parameters": [],
+        "depends_on": [
+            {
+                "name": "set_do_not_disturb_status",
+                "dependence_type": "TOOL_INDIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "Once the Do Not Disturb mode status is retrieved, it can be set."
+            }
+        ],
+        "func_type": "core"
+    },
+    {
+        "name": "set_screen_brightness",
+        "description": "Sets the screen brightness level.",
+        "parameters": [
+            {
+                "name": "level",
+                "description": "Brightness level between 0 (minimum) and 100 (maximum).",
+                "type": "int",
+                "required": true
+            }
+        ],
+        "depends_on": [
+            {
+                "name": "get_screen_brightness",
+                "dependence_type": "TOOL_INDIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "To determine the current screen brightness level."
+            }
+        ],
+        "func_type": "core"
+    },
+    {
+        "name": "get_screen_brightness",
+        "description": "Returns the current screen brightness level.",
+        "parameters": [],
+        "depends_on": [
+            {
+                "name": "set_screen_brightness",
+                "dependence_type": "TOOL_INDIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "To determine the current screen brightness level."
+            }
+        ],
+        "func_type": "core"
+    },
+    {
+        "name": "set_volume_level",
+        "description": "Sets the device volume level.",
+        "parameters": [
+            {
+                "name": "level",
+                "description": "Volume level between 0 (mute) and 100 (maximum).",
+                "type": "int",
+                "required": true
+            }
+        ],
+        "depends_on": [
+            {
+                "name": "get_volume_level",
+                "dependence_type": "TOOL_INDIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "To determine the current volume level."
+            }
+        ],
+        "func_type": "core"
+    },
+    {
+        "name": "get_volume_level",
+        "description": "Returns the current volume level.",
+        "parameters": [],
+        "depends_on": [
+            {
+                "name": "set_volume_level",
+                "dependence_type": "TOOL_INDIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "To determine the current volume level."
+            }
+        ],
+        "func_type": "core"
+    },
+    {
+        "name": "get_us_national_holiday",
+        "description": "Determines if a given date is a public US holiday returns its name.",
+        "parameters": [
+            {
+                "name": "date",
+                "type": "string",
+                "description": "The date to check for holidays (format: YYYY-MM-DD).",
+                "required": true
+            }
+        ],
+        "func_type": "core",
+        "depends_on": []
+    },
+    {
+        "name": "get_installed_applications",
+        "description": "Provides a list of applications installed on the system.",
+        "parameters": [],
+        "func_type": "core",
+        "depends_on": [
+            {
+                "name": "get_current_storage_space",
+                "dependence_type": "TOOL_INDIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "To determine the available storage space."
+            }
+        ]
+    },
+    {
+        "name": "get_current_weather",
+        "description": "Provides the current weather conditions (e.g., temperature, precipitation, humidity) for a given location.",
+        "parameters": [
+            {
+                "name": "location",
+                "description": "The location for which to retrieve weather conditions (e.g., city name, coordinates).",
+                "required": true
+            }
+        ],
+        "depends_on": [],
+        "func_type": "core"
+    },
+    {
+        "name": "get_battery_status",
+        "description": "Reports the current battery level and charging status (useful for mobile/laptop devices).",
+        "parameters": [],
+        "depends_on": [
+            {
+                "name": "set_low_battery_mode_status",
+                "dependence_type": "TOOL_INDIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "Will be needed if wanting to set low battery status on if battery is getting low."
+            }
+        ],
+        "func_type": "core"
+    },
+    {
+        "name": "get_network_ip_address",
+        "description": "Retrieves the current IP address of the device on the network.",
+        "parameters": [],
+        "depends_on": [],
+        "func_type": "core"
+    },
+    {
+        "name": "get_clock_timers",
+        "description": "Retrieves a list of currently active clock timers and their remaining time.",
+        "parameters": [],
+        "depends_on": [
+            {
+                "name": "set_clock_timer",
+                "dependence_type": "TOOL_INDIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "To determine if the timer is already running."
+            }
+        ],
+        "func_type": "core"
+    },
+    {
+        "name": "set_clock_timer",
+        "description": "Sets a new clock timer for the specified duration using the clock timer app.",
+        "parameters": [
+            {
+                "name": "hour",
+                "description": "The number of hours for the timer.",
+                "type": "integer",
+                "required": true
+            },
+            {
+                "name": "min",
+                "description": "The number of minutes for the timer.",
+                "type": "integer",
+                "required": true
+            },
+            {
+                "name": "sec",
+                "description": "The number of seconds for the timer.",
+                "type": "integer",
+                "required": true
+            }
+        ],
+        "depends_on": [
+            {
+                "name": "get_clock_timers",
+                "dependence_type": "TOOL_INDIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "To determine if the timer is already running."
+            }
+        ],
+        "func_type": "core"
+    },
+    {
+        "name": "validate_email",
+        "description": "Checks if an input string is a valid email address.",
+        "parameters": [
+            {
+                "name": "email",
+                "type": "string",
+                "description": "The email address to validate.",
+                "required": true
+            }
+        ],
+        "depends_on": [],
+        "func_type": "core"
+    },
+    {
+        "name": "hash_string",
+        "description": "Generates a hash string for the given input using a specified hashing algorithm.",
+        "parameters": [
+            {
+                "name": "data",
+                "type": "string",
+                "description": "The input string to be hashed."
+            },
+            {
+                "name": "algorithm",
+                "type": "string",
+                "description": "The hashing algorithm to use, such as 'sha256' or 'md5'.",
+                "default": "sha256",
+                "enum": [
+                    "sha256",
+                    "md5"
+                ],
+                "required": false
+            }
+        ],
+        "depends_on": [],
+        "func_type": "core"
+    },
+    {
+        "name": "set_notifications",
+        "description": "Sets notifications on or off on the device.",
+        "parameters": [
+            {
+                "name": "on",
+                "type": "bool",
+                "description": "Set to true to enable notifications or false to disable",
+                "required": true
+            }
+        ],
+        "depends_on": [
+            {
+                "name": "get_notifications",
+                "dependence_type": "TOOL_INDIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "To determine if notifications are already enabled."
+            }
+        ],
+        "func_type": "core"
+    },
+    {
+        "name": "get_notifications",
+        "description": "Returns the current status of notifications on the device.",
+        "parameters": [],
+        "func_type": "core",
+        "depends_on": [
+            {
+                "name": "set_notifications",
+                "dependence_type": "TOOL_INDIRECTLY_DEPENDS_ON",
+                "parameter_name": null,
+                "reason": "Once the notification status is retrieved, it can be set."
+            }
+        ]
+    },
+    {
+        "name": "search_file_system",
+        "description": "Searches the file system for a file or directory with the given name.",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "description": "The name of the file or directory to search for.",
+                "required": true
+            }
+        ],
+        "depends_on": [],
+        "func_type": "core"
+    },
+    {
+        "name": "get_current_storage_space",
+        "description": "Returns the current storage space available on the device.",
+        "parameters": [],
+        "depends_on": [],
+        "func_type": "core"
+    },
+    {
+        "name": "get_stock_ticker",
+        "description": "Retrieves the current stock ticker information for a given company name.",
+        "parameters": [
+            {
+                "name": "company_name",
+                "type": "string",
+                "description": "The name of the company to retrieve stock information for.",
+                "required": true
+            }
+        ],
+        "depends_on": [],
+        "func_type": "core"
+    },
+    {
+        "name": "get_screen_time_data",
+        "description": "Retrieves screen time data (in hours) from the OS.",
+        "parameters": [],
+        "depends_on": [],
+        "func_type": "core"
+    },
+    {
+        "name": "convert_to_desired_unit",
+        "description": "Converts a given value to the desired unit of measurement.",
+        "parameters": [
+            {
+                "name": "value",
+                "type": "float",
+                "description": "The value to be converted.",
+                "required": true
+            },
+            {
+                "name": "from_unit",
+                "type": "string",
+                "description": "The current unit of measurement.",
+                "required": true
+            },
+            {
+                "name": "to_unit",
+                "type": "string",
+                "description": "The desired unit of measurement.",
+                "required": true
+            }
+        ],
+        "depends_on": [],
+        "func_type": "core"
+    },
+    {
+        "name": "get_bpm",
+        "description": "Fetches the user's current heart rate (BPM) from the health app.",
+        "parameters": [],
+        "depends_on": [],
+        "func_type": "core"
+    },
+    {
+        "name": "get_steps_per_day",
+        "description": "Fetches user's daily step count from the health app.",
+        "parameters": [
+            {
+                "name": "average",
+                "type": "bool",
+                "description": "Whether to return the average daily steps for the user or the current daily steps.",
+                "required": false,
+                "default": false
+            }
+        ],
+        "depends_on": [],
+        "func_type": "core"
+    },
+    {
+        "name": "calculate_bmi",
+        "description": "Calculates the Body Mass Index (BMI) using weight and height to determine if a person is underweight, normal, overweight, or obese.",
+        "parameters": [
+            {
+                "name": "weight_kg",
+                "type": "float",
+                "description": "The individual's weight in kilograms.",
+                "required": true
+            },
+            {
+                "name": "height_m",
+                "type": "float",
+                "description": "The individual's height in meters.",
+                "required": true
+            }
+        ],
+        "depends_on": [
+            {
+                "name": "convert_to_desired_unit",
+                "dependence_type": "PARAMETER_INDIRECTLY_DEPENDS_ON",
+                "parameter_name": "weight_kg,height_m",
+                "reason": "To convert the weight if from_unit != to_unit. To convert the height if from_unit != to_unit."
+            }
+        ],
+        "func_type": "core"
+    },
+    {
+        "name": "get_country_code",
+        "description": "Retrieves the country code for a given country name.",
+        "parameters": [
+          {
+            "name": "country_name",
+            "type": "string",
+            "description": "The name of the country.",
+            "required": true
+          }
+        ],
+        "depends_on": [],
+        "func_type": "core"
+      },
+      {
+        "name": "get_city_code",
+        "description": "Retrieves the city code for a given city within a specified country.",
+        "parameters": [
+          {
+            "name": "city_name",
+            "type": "string",
+            "description": "The name of the city.",
+            "required": true
+          },
+          {
+            "name": "country_code",
+            "type": "string",
+            "description": "The country code where the city is located.",
+            "required": true
+          }
+        ],
+        "depends_on": [
+          {
+            "name": "get_country_code",
+            "dependence_type": "PARAMETER_DIRECTLY_DEPENDS_ON",
+            "parameter_name": "country_code",
+            "reason": "To validate the country code before retrieving the city code."
+          }
+        ],
+        "func_type": "core"
+      },
+      {
+        "name": "get_sub_region_code",
+        "description": "Retrieves the sub-region code for a given state, province, or sub-region within a specified country.",
+        "parameters": [
+          {
+            "name": "sub_region_name",
+            "type": "string",
+            "description": "The name of the sub-region (e.g., state, province).",
+            "required": true
+          },
+          {
+            "name": "country_code",
+            "type": "string",
+            "description": "The country code where the sub-region is located.",
+            "required": true
+          }
+        ],
+        "depends_on": [
+          {
+            "name": "get_country_code",
+            "dependence_type": "PARAMETER_DIRECTLY_DEPENDS_ON",
+            "parameter_name": "country_code",
+            "reason": "To validate the country code before retrieving the sub-region code."
+          }
+        ],
+        "func_type": "core"
+      },
+      {
+        "name": "get_case_id",
+        "description": "Fetches a unique case identifier (case_id) from a case name or search query.",
+        "parameters": [
+          {
+            "name": "case_name",
+            "type": "string",
+            "description": "The name of the legal case or a relevant search query.",
+            "required": true
+          },
+          {
+            "name": "jurisdiction",
+            "type": "string",
+            "description": "The jurisdiction in which the case is filed (e.g., federal, state).",
+            "required": false
+          }
+        ],
+        "depends_on": [
+          {
+            "name": "get_wifi_status",
+            "dependence_type": "TOOL_DIRECTLY_DEPENDS_ON",
+            "parameter_name": null,
+            "reason": "To access online legal databases for retrieving case identifiers."
+          },
+            {
+                "name": "get_cellular_service_status",
+                "dependence_type": "TOOL_DIRECTLY_DEPENDS_ON",
+            "parameter_name": null,
+            "reason": "To access cellular online legal databases for retrieving case identifiers."
+            }
+        ],
+        "func_type": "core"
+      }
+]
