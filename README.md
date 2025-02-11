@@ -16,13 +16,13 @@ This structure enables **Graph RAG-Tool Fusion** to retrieve tools more effectiv
 
 ---
 
-## **Example: Multi-Step Tool Dependency Execution**
+## **The Graph RAG-Tool Fusion Approach**
 
 The figure below illustrates a user query for making a restaurant reservation in **Midtown NYC**. The **Graph RAG-Tool Fusion** model retrieves all required tools, their dependencies, and executes them step-by-step to fulfill the request.
 
 ![Graph RAG Query Execution](assets/graphrag_main.png)
 
-## **Example: GraphRAG-Tool Fusion Knowledge Graph Schema**
+## **GraphRAG-Tool Fusion Knowledge Graph Schema (ToolLinkOS Example)**
 The KG schema within ToolLinkOS is as follows:
 - Node Types:
   - Core Tool: A reusable function that is a typical dependency of other tools. These tools provide essential functionalities, such as “get_current_date”, which other tools may require before execution.
