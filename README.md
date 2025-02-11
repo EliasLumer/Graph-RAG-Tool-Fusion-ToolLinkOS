@@ -1,10 +1,8 @@
 # **Graph RAG-Tool Fusion**
 
-This repository accompanies the research paper [Placeholder Link] and contains the **ToolLinkOS dataset**, a collection of **573 fictional tools** with an average of **6.3 dependencies each**, spanning over **15 industries**.
+This repository accompanies the research paper [Placeholder Link]. In the paper, we introduce Graph RAG-Tool Fusion (advanced tool retrieval approach) and the **ToolLinkOS dataset**, a collection of **573 fictional tools** with an average of **6.3 dependencies each**, spanning over **15 industries**.
 
 ---
-
-## **Abstract**
 
 Recent developments in retrieval-augmented generation (RAG) for selecting relevant tools from a tool knowledge base enable LLM agents to scale their complex tool calling capabilities to hundreds or thousands of external tools, APIs, or agents-as-tools. However, traditional RAG-based tool retrieval fails to capture structured dependencies between tools, limiting the retrieval accuracy of a retrieved tool’s dependencies. For example, among a vector database of tools, a "get stock price" API requires a "stock ticker" parameter from a "get stock ticker" API, and both depend on OS-level internet connectivity tools. In this paper, we address this limitation by introducing **Graph RAG-Tool Fusion**, a novel plug-and-play approach that combines the strengths of vector-based retrieval with efficient graph traversal to capture all relevant tools (nodes) along with any nested dependencies (edges) within the predefined tool knowledge graph. We also present **ToolLinkOS**, a new tool selection benchmark of **573 fictional tools**, spanning over **15 industries**, each with an average of **6.3 tool dependencies**. We demonstrate that **Graph RAG-Tool Fusion** achieves absolute improvements of **71.7% and 22.1%** over naive RAG on **ToolLinkOS** and **ToolSandbox** benchmarks, respectively (**mAP@10**).
 
@@ -22,7 +20,21 @@ This structure enables **Graph RAG-Tool Fusion** to retrieve tools more effectiv
 
 The figure below illustrates a user query for making a restaurant reservation in **Midtown NYC**. The **Graph RAG-Tool Fusion** model retrieves all required tools, their dependencies, and executes them step-by-step to fulfill the request.
 
-![Graph RAG Query Execution](assets/graphrag_main-1.png)
+![Graph RAG Query Execution](assets/graphrag_main-1.pdf)
+
+## **Example: GraphRAG-Tool Fusion Knowledge Graph Schema**
+The KG schema within ToolLinkOS is as follows:
+- Node Types:
+  - Core Tool: A reusable function that is a typical dependency of other tools. These tools provide essential functionalities, such as “get_current_date”, which other tools may require before execution.
+  - Regular Tool: A tool, API, or agent-as-tool that performs a specific function. These tools may have dependencies on core or other regular tools. For example, “get_stock_price” depends on “get_stock_ticker”.
+- Edge Types:
+  - Tool Directly Depends On: A tool requires another tool to operate. For example, “set_wifi_on” must be executed before a tool requiring internet connectivity.
+  - Tool Indirectly Depends On: A tool benefits from another but does not strictly require it. For example, a “restaurant_reservation” tool may use “get_weather”, but it can still function without it.
+  - Parameter Directly Depends On: A required parameter must be obtained from another tool before execution. For instance, “product_info” needs a “product_id” from “get_product_id”.
+  - Parameter Indirectly Depends On: A parameter depends on additional context only if required by the user. For example, “tomorrow” requires “get_current_date” but a fixed date does not.
+
+Example of the schema for a few tools during retrieval:
+![Graph RAG Query Execution](assets/graphrag_main-2.pdf)
 
 ---
 
