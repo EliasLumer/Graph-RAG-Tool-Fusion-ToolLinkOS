@@ -20,7 +20,7 @@ This structure enables **Graph RAG-Tool Fusion** to retrieve tools more effectiv
 
 The figure below illustrates a user query for making a restaurant reservation in **Midtown NYC**. The **Graph RAG-Tool Fusion** model retrieves all required tools, their dependencies, and executes them step-by-step to fulfill the request.
 
-![Graph RAG Query Execution](assets/graphrag_main-1.pdf)
+![Graph RAG Query Execution](assets/graphrag_main.png)
 
 ## **Example: GraphRAG-Tool Fusion Knowledge Graph Schema**
 The KG schema within ToolLinkOS is as follows:
@@ -34,10 +34,9 @@ The KG schema within ToolLinkOS is as follows:
   - Parameter Indirectly Depends On: A parameter depends on additional context only if required by the user. For example, “tomorrow” requires “get_current_date” but a fixed date does not.
 
 Example of the schema for a few tools during retrieval:
-![Graph RAG-Tool Fusion Schema Selection](assets/grtf_tool_schema_selection.pdf)
+![Graph RAG-Tool Fusion Schema Selection](assets/grtf_tool_schema_selection.png)
 
 ---
-
 
 ## **Dataset Overview**
 
@@ -56,7 +55,7 @@ Example of the schema for a few tools during retrieval:
 
 ToolLinkOS was constructed through an iterative process involving **LLM-based brainstorming, dependency verification, and manual validation** to ensure high-quality tool relationships across industries.
 
-![Tool Generation Workflow](assets/tool_generation_process.pdf)
+![Tool Generation Workflow](assets/tool_generation_process.png)
 
 ---
 
