@@ -1,6 +1,6 @@
 # **Graph RAG-Tool Fusion**
 
-This repository accompanies the research paper [Placeholder Link]. In the paper, we introduce Graph RAG-Tool Fusion (advanced tool retrieval approach) and the **ToolLinkOS dataset**, a collection of **573 fictional tools** with an average of **6.3 dependencies each**, spanning over **15 industries**.
+This repository accompanies the research paper [Graph RAG-Tool Fusion](https://arxiv.org/abs/2502.07223). In the paper, we introduce Graph RAG-Tool Fusion (advanced tool retrieval approach) and the **ToolLinkOS dataset**, a collection of **573 fictional tools** with an average of **6.3 dependencies each**, spanning over **15 industries**.
 
 ---
 
