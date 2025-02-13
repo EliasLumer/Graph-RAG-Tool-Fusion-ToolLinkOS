@@ -67,12 +67,14 @@ All references to company names or services in the ToolLinkOS dataset are entire
 ## **Citation**
 If you use this dataset or method, please cite our work:
 ```
-@article{GraphRAG-ToolFusion,
-  title={Graph RAG-Tool Fusion: Enhancing Retrieval-Augmented Tool Use with Graph Knowledge},
-  author={[Author Names]},
-  year={2024},
-  journal={[Conference/Journal Name]},
-  url={Placeholder Link}
+@misc{lumer2025graphragtoolfusion,
+      title={Graph RAG-Tool Fusion}, 
+      author={Elias Lumer and Pradeep Honaganahalli Basavaraju and Myles Mason and James A. Burke and Vamse Kumar Subbiah},
+      year={2025},
+      eprint={2502.07223},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2502.07223}, 
 }
 ```
 
